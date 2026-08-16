@@ -1,0 +1,27 @@
+Client :
+
+1 .connecter aprés son ajout au site.
+2 .Modifier Profil.
+3 .voir ses projets (% de travail) ainsi que les tâches relatives au projet (% de travail aussi).
+4 .contacter l'admin (envoyer un message, recevoir une message).
+5 .déconnecter.
+
+Employé :
+
+1 .connecter à la plateforme.
+2 .Modifier Profil.
+3 .voir les projets , voir les tâches relatives (négocier le projet et les tâches avec l'admin).
+4 .une fois affecté pour une tâche (ecrire un compte rendu) attendre la validation.
+5 .contacter l'admin (envoyer un message, recevoir une message).
+6 .déconnecter.
+
+Admin :
+
+1 .connecter.
+2 .ajouter un client.
+3 .ajouter un employé.
+4 .ajouter un projet ainsi tâches relatives.
+5 .affecter des tâches aux employés.
+6 .validation ou pas des comptes rendu.
+7 .contacter les employés et les clients.
+8 .déconnecter.

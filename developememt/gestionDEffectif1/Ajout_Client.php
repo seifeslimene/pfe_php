@@ -1,0 +1,259 @@
+<?php
+include 'Config.php';
+
+$nom 		= "";
+$prenom 	= "";
+$datenais 	= "";
+$email 	    = "";
+$adresse 	= "";
+$cin 		= "";
+$matriculefiscal  = "";
+
+$e = array();
+	
+if(isset($_POST))
+{
+	if(!empty($_POST))
+	{
+	
+		$nom 		= $_POST['Nom'];
+		$prenom 	= $_POST['Prenom'];
+		$datenais 	= $_POST['datenaissance'];
+		$email 	    = $_POST['email'];
+		$adresse 	= $_POST['adresse'];
+		$cin 		= $_POST['cin'];
+		$matriculefiscal  =$_POST['matriculefiscale'];
+		
+		if(empty($nom))
+		{
+			$e["Nom"]="Le Champ 'Nom' Est Obligatoire";
+		}
+		if(empty($prenom))
+		{
+			$e["Prenom"]="Le Champ 'Pr&eacute;nom' Est Obligatoire";
+		}
+		if(empty($datenais))
+		{
+			$e["datenaissance"]="Le Champ 'Date De Naissance' Est Obligatoire";
+		}
+		
+		if(empty($email))
+		{
+			$e["email"]="Le Champ 'Adresse Email' Est Obligatoire";
+		}
+		if(empty($adresse))
+		{
+			$e["adresse"]="Le Champ 'Adresse' Est Obligatoire";
+		}
+		if(empty($cin))
+		{
+			$e["cin"]="Le Champ 'Num&eacutero C.I.N' Est Obligatoire";
+		}
+		if(empty($matriculefiscal))
+		{
+			$e["MATRICULEFISCALE"]="Le Champ 'Matricule Fiscale' Est Obligatoire";
+		}
+		
+		if(sizeof($e)<1)
+		{
+		$req_ajout  = "INSERT INTO `personne`
+									( 	`Nom`,
+										`Prenom`,
+										`datenaissance`,
+										`email`,
+										`mdp`,
+										`adresse`,
+										`cin`) 
+								 VALUES   ('".$nom."',
+										  '".$prenom."',
+										  '".$datenais."',
+										  '".$email."',
+										  ".$cin.",
+										  '".$adresse."',
+										  ".$cin."
+										  
+										  );";
+		
+		$conn->query($req_ajout);
+		$ref_personne = $conn->insert_id;
+		$req_ajout_emp = "INSERT INTO `client`
+									( 	`MATRICULEFISCALE`,
+										`REFPERSONNE`)
+								 VALUES   ('".$matriculefiscal."',
+										  ".$ref_personne."
+										  );";
+										  
+		$conn->query($req_ajout_emp);
+		header('location:Client.php');
+
+		}
+	}
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<title>Ajout D'un Client</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  	<link href="assets/application-b9abcf044a0bc3e705568d103eddd00e.css" media="all" rel="stylesheet" />
+  	<script  src="assets/application-851b8fea8f29120d8b765082481c5168.js"></script>
+  	<meta content="authenticity_token" name="csrf-param" />
+<meta content="THQUbKuhd5E4mpMsDBjVn3SNg1UbzeQi6+i/GfSy4qE=" name="csrf-token" />
+  	<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body id="form">
+	
+	<div id="wrapper">
+    
+        <div id="sidebar-default" class="main-sidebar fix-scroll">
+  <div class="current-user">
+      <a href="#" class="name">
+        <img alt="1" class="avatar" src="assets/avatars/1-60c47167290e620ea8ef2aa01d40c05e.jpg" />
+        <span>
+          Slimene Seif 
+          <!--<i class="fa fa-chevron-down"></i>-->
+        </span>
+      </a>
+      <ul class="menu">
+        <li>
+          <a href="/1.1/account/settings">Account settings</a>
+        </li>
+        <li>
+          <a href="/1.1/account/billing">Billing</a>
+        </li>
+        <li>
+          <a href="/1.1/account/notifications">Notifications</a>
+        </li>
+        <li>
+          <a href="/1.1/account/support">Help / Support</a>
+        </li>
+        <li>
+          <a href="/1.1/features/signin">Sign out</a>
+        </li>
+      </ul>
+  </div>
+<div class="menu-section">
+	<h3>Admin</h3>
+    <ul>
+      <li class="option">
+<a href="Espace_Admin.php" class="sidebar">
+          <i class="ion-home"></i> <span>Accueil</span>
+        </a>
+      </li>
+	    <li class="option">
+<a href="Login_Admin.php" class="sidebar">
+          <i class="ion-gear-b"></i> <span>D&eacute;connexion</span>
+        </a>
+      </li>
+<br>
+
+    </ul>
+    <h3>Ajout</h3>
+    <ul>
+      <li class="option">
+<a href="Ajout_Client.php" class="sidebar">
+          <i class="ion-android-earth"></i> <span>Client</span>
+        </a>
+      </li>
+      <li class="option">
+        <a href="Ajout_Employe.php" data-toggle="sidebar">
+          <i class="ion-person-stalker"></i> <span>Employ&eacute;</span>
+        </a>
+      </li>
+      <li class="option">
+        <a href="Ajout_Projet.php" data-toggle="sidebar">
+          <i class="ion-stats-bars"></i> <span>Projet</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+<div id="content">
+          
+
+<div class="menubar">
+	<div class="sidebar-toggler visible-xs">
+		<i class="ion-navicon"></i>
+	</div>
+
+	<div class="page-title">
+			<strong>Ajout D'un Client</strong>
+	</div>
+</div>
+
+<div class="content-wrapper">
+<div class="content-wrapper"><a href="Client.php" class="btn btn-primary">Liste Des Clients</a></div>
+
+
+	<form id="new-customer" class="form-horizontal" method="post" action="" role="form">
+	
+	
+	
+	  	<div class="form-group <?php if(isset($e['Nom'])){if(!empty($e['Nom'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Nom</label>
+		    <div class="col-sm-10 col-md-8">
+		      <input type="text" class="form-control" name="Nom" value="<?php   echo $nom;?>" />
+			  <span class="help-block"><?php if(isset($e['Nom'])){if(!empty($e['Nom'])){echo $e['Nom'];}}?></span>
+		    </div>
+	  	</div>
+		
+		
+	  	<div class="form-group <?php if(isset($e['Prenom'])){if(!empty($e['Prenom'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Pr&eacute;nom</label>
+		    <div class="col-sm-10 col-md-8">
+		      <input type="text" class="form-control" name="Prenom" value="<?php   echo $prenom;?>"/>
+			  <span class="help-block"><?php if(isset($e['Prenom'])){if(!empty($e['Prenom'])){echo $e['Prenom'];}}?></span>
+		    </div>
+	  	</div>
+		<div class="form-group <?php if(isset($e['datenaissance'])){if(!empty($e['datenaissance'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Date De Naissance</label>
+		    <div class="col-sm-10 col-md-8">
+		      <input type="text" class="form-control" name="datenaissance" value="<?php   echo $datenais;?>"/>
+			  <span class="help-block"><?php if(isset($e['datenaissance'])){if(!empty($e['datenaissance'])){echo $e['datenaissance'];}}?></span>
+		    </div>
+	  	</div>
+	  	<div class="form-group <?php if(isset($e['email'])){if(!empty($e['email'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Adresse Email</label>
+		    <div class="col-sm-10 col-md-8">
+		      	<input type="text" class="form-control" name="email" value="<?php   echo $email;?>"/>
+				<span class="help-block"><?php if(isset($e['email'])){if(!empty($e['email'])){echo $e['email'];}}?></span>
+		    </div>
+	  	</div>
+	  	<div class="form-group <?php if(isset($e['adresse'])){if(!empty($e['adresse'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Adresse</label>
+		    <div class="col-sm-10 col-md-8">
+		      	<input type="text" class="form-control" name="adresse" value="<?php   echo $adresse;?>"/>
+				<span class="help-block"><?php if(isset($e['adresse'])){if(!empty($e['adresse'])){echo $e['adresse'];}}?></span>
+		    </div>
+		</div>
+	    <div class="form-group <?php if(isset($e['cin'])){if(!empty($e['cin'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Num&eacute;ro C.I.N</label>
+		    <div class="col-sm-10 col-md-8">
+		      	<input type="text" class="form-control" name="cin" value="<?php   echo $cin;?>"/>
+				<span class="help-block"><?php if(isset($e['cin'])){if(!empty($e['cin'])){echo $e['cin'];}}?></span>
+		    </div>
+		</div>
+	    <div class="form-group <?php if(isset($e['MATRICULEFISCALE'])){if(!empty($e['MATRICULEFISCALE'])){echo 'has-error';}}?>">
+		    <label class="col-sm-2 col-md-2 control-label">Matricule Fiscale</label>
+		    <div class="col-sm-10 col-md-8">
+		      	<input type="text" class="form-control" name="matriculefiscale" value="<?php   echo $matriculefiscal ;?>"/>
+				<span class="help-block"><?php if(isset($e['MATRICULEFISCALE'])){if(!empty($e['MATRICULEFISCALE'])){echo $e['MATRICULEFISCALE'];}}?></span>
+		    </div>
+		</div>
+	  	<div class="form-group form-actions">
+	    	<div class="col-sm-offset-2 col-sm-10">
+	    		<a href="Ajout_Client.php" class="btn btn-default">Annuler</a>
+	      		<button type="submit" class="btn btn-success">Enregistrer</button>
+    		</div>
+	  	</div>
+	</form>
+</div>
+        </div>  
+    </div>   
+</body>
+</html>
